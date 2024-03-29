@@ -2,30 +2,53 @@ import { useState } from "react";
 import { Dialog } from "primereact/dialog";
 import "./test.scss";
 
-const initialState = {
+export type Post = {
+  author: string,
+  content: string,
+  count: number,
+}
+
+export type VerifiedPost = Omit<Post, "count">
+
+const initialState: Post = {
   author: "",
   content: "",
   count: 0,
 };
 
 interface AddPostModal {
-  // TODO
+  modalOpen: boolean;
+  handleSendPost: (post: VerifiedPost) => void;
+  handleCloseModal: () => void;
 }
+
 
 const AddPostModal = ({
   modalOpen,
   handleSendPost,
   handleCloseModal,
 }: AddPostModal) => {
-  const [state, setState] = useState(initialState);
+  const [state, setState] = useState<Post>(initialState);
   const { author, content, count } = state;
 
   const handleSendClick = () => {
-    /*
-      Если все поля заполнены, то инициируем отправку поста.
-      Нужно передать параметры author и content.
-     */
+    if (author.length > 0 && count > 0) {
+      handleSendPost({ author, content });
+    }
   };
+
+  const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setState({ ...state, author: event.target.value });
+  };
+
+  const onChangeContent = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setState({
+      ...state,
+      content: event.target.value,
+      count: event.target.value.length,
+    });
+  };
+
   return (
     <Dialog visible={modalOpen} onHide={handleCloseModal}>
       <div className="AddPostModal">
@@ -35,13 +58,13 @@ const AddPostModal = ({
           type="text"
           placeholder="Name"
           value={author}
-          onChange={(e) => setState({ ...state, author: e })}
+          onChange={onChangeName}
         ></input>
         <textarea
           className="Content"
           value={content}
           maxLength={200}
-          onChange={(e) => setState({ ...state, content: e, count: e.length })}
+          onChange={onChangeContent}
         ></textarea>
         <div className="charCount">{`${count}/200`}</div>
         <div className="buttonsWrapper">
