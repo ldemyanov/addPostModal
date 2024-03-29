@@ -1,4 +1,4 @@
-import { useState, useCalback } from "react";
+import { useState, useCallback } from "react";
 import { Dialog } from "primereact/dialog";
 import "./test.scss";
 
@@ -37,16 +37,16 @@ const AddPostModal = ({
     }
   };
 
-  const onChangeName = useCalback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setState({ ...state, author: event.target.value });
+  const onChangeName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
+    setState((prevState) => { ...prevState, author: event.target.value });
   }, []);
 
-  const onChangeContent = useCalback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setState({
-      ...state,
+  const onChangeContent = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setState((prevState) => ({
+      ...prevState,
       content: event.target.value,
       count: event.target.value.length,
-    });
+    }));
   }, []);
 
   return (
