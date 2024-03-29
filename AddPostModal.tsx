@@ -72,7 +72,7 @@ const AddPostModal = ({
           <button onClick={handleSendClick}>Send</button>
         </div>
       </div>
-    // </Dialog>
+    </Dialog>
   );
 };
 
