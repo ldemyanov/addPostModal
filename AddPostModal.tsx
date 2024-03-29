@@ -59,7 +59,7 @@ const AddPostModal = ({
           placeholder="Name"
           value={author}
           onChange={onChangeName}
-        ></input>
+        />
         <textarea
           className="Content"
           value={content}
@@ -72,7 +72,7 @@ const AddPostModal = ({
           <button onClick={handleSendClick}>Send</button>
         </div>
       </div>
-    </Dialog>
+    // </Dialog>
   );
 };
 
