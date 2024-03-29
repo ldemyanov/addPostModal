@@ -38,7 +38,7 @@ const AddPostModal = ({
   };
 
   const onChangeName = useCallback((event: React.ChangeEvent<HTMLInputElement>) => {
-    setState((prevState) => { ...prevState, author: event.target.value });
+    setState((prevState) => ({ ...prevState, author: event.target.value }));
   }, []);
 
   const onChangeContent = useCallback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
