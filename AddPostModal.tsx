@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCalback } from "react";
 import { Dialog } from "primereact/dialog";
 import "./test.scss";
 
@@ -37,17 +37,17 @@ const AddPostModal = ({
     }
   };
 
-  const onChangeName = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeName = useCalback((event: React.ChangeEvent<HTMLInputElement>) => {
     setState({ ...state, author: event.target.value });
-  };
+  }, []);
 
-  const onChangeContent = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const onChangeContent = useCalback((event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setState({
       ...state,
       content: event.target.value,
       count: event.target.value.length,
     });
-  };
+  }, []);
 
   return (
     <Dialog visible={modalOpen} onHide={handleCloseModal}>
